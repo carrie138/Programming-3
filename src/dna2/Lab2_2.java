@@ -6,6 +6,7 @@ public class Lab2_2 {
 
 	public static void main(String[] args) {
 		
+		// add a comment
 		// run loop from 1 to 1000
 		
 		int z = 0;
