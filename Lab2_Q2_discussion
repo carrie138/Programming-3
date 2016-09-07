@@ -1,0 +1,4 @@
+Count of AAA was 11 when ran. Expected count is out of 1000 with equal probabilities for all bases. This computes to 
+(A * 0.25 + A * 0.25 + A * 0.25) * 1000 = 15.625 occurrences
+(16 - 11 / 1000) * 100  = 0.5% difference
+So, 11 is a reasonable number according to what is expected for equal probabilities of the 4 bases.
