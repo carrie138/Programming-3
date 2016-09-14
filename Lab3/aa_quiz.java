@@ -17,7 +17,6 @@ import java.util.Random;
 				"P", "S", "T", "W", "Y", "V" 
 			};
 
-			System.out.println(SHORT_NAMES);
 			// list of amino acids
 			String[] FULL_NAMES = 
 			{
@@ -36,10 +35,10 @@ import java.util.Random;
 	
 			// get time and add 30 seconds
 			Calendar c = Calendar.getInstance();
-			long time1 = c.getTimeInMillis();
+			long time = c.getTimeInMillis();
 			int correct = 0; 
 			// play game
-			while ((time1 * 1000) < ((time1 * 1000) + (1000 * 31))) 
+			while ((time * 1000) < ((time * 1000) + (1000 * 31))) 
 			{
 				// choose random amino acid and ask and recieve answer
 				int aanum = random.nextInt(listLength);
@@ -53,7 +52,7 @@ import java.util.Random;
 					break;
 					};
 			}
-			System.out.println("Number of correct responses: " + correct + "in time " + time1);
+			System.out.println("Number of correct responses: " + correct);
 		}
 }
 	
