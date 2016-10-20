@@ -206,7 +206,7 @@ public class MyGUI extends JFrame
 
 	public static void main(String[] args)
 	{
-		new MyGUI();
+		new MyGUI;
 	}
 }
 
