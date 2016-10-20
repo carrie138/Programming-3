@@ -186,27 +186,27 @@ public class MyGUI extends JFrame
 		{
 			BufferedReader reader = new BufferedReader(new FileReader(chosenFile));
 			String line = reader.readLine();
-		
+			reader.close();
 			if( line == null || reader.readLine() != null)
 				throw new Exception("Unexpected file format");
-			
+		
 			StringTokenizer sToken = new StringTokenizer(line);
 			
 			if( sToken.countTokens() != 1)
 				throw new Exception("Unexpected file format");
 			
 		}
-
+			
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Could not read file.", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	
-public static void main(String[] args)
-{
-	new MyGUI();
-}
+
+	public static void main(String[] args)
+	{
+		new MyGUI();
+	}
 }
 
