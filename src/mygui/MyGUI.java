@@ -16,23 +16,23 @@ public class MyGUI extends JFrame
 {
 	private static final long serialVersionUID = 3794059922116115530L;
 	private JTextArea textArea = new JTextArea();
-	private JTextField feedPig = new JTextField("When your guinea pig is hungry he says wheak wheak");
+	private JTextArea feedPig = new JTextArea("Your guinea pig is hungry: \"Wheak Wheak!\"");
 	private static Random random = new Random();
 	private JFrame aFrame = new JFrame("Guinea Pig Trough");
 	private boolean cancel = false;
-	private JButton wheakButton = new JButton("Wheak Wheak");
-	private JButton cancelButton = new JButton("Cancel");
+	private JButton wheakButton = new JButton("Feed pig");
+	private JButton cancelButton = new JButton("Take food away");
 	
-	public void GuineaPigTrough()
+	public MyGUI()
 	{
-		aFrame.setSize(400,300);
-		aFrame.setLocationRelativeTo(null);
-		aFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		aFrame.getContentPane().setLayout(new BorderLayout());
-		aFrame.add(getBottomPanel(), BorderLayout.SOUTH);
-		aFrame.getContentPane().add(feedPig, BorderLayout.CENTER);
+		setLocationRelativeTo(null);
+		setSize(600,600);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(new BorderLayout());
+		add(getBottomPanel(), BorderLayout.SOUTH);
+		getContentPane().add(feedPig, BorderLayout.CENTER);
 		setJMenuBar(getMyMenuBar());
-		aFrame.setVisible(true);
+		setVisible(true);
 	}
 	
 	private JPanel getBottomPanel()
@@ -53,17 +53,16 @@ public class MyGUI extends JFrame
 		{
 			if( random.nextFloat() < 0.5 )
 			{
-				feedPig.setText("Red peppers, Orange oranges, Yellow yams, Green kiwi, Blue berries, Indigo ice cream, Violet vegetables!");
+				feedPig.setText("Whoop Whoop! Yum! Your guinea pig is eating - be patient or take his food away.");
 			}
 			else
 			{
-				feedPig.setText("Oh yay, its hay.....again. Weak.");
+				feedPig.setText("Hay again? Weak Weak. Your guinea pig is eating - be patient or take away his food.");
 			}	
-		
+		updateTextField();
 		cancel = false;
 		wheakButton.setEnabled(false);
 		cancelButton.setEnabled(true);
-		textArea.setText("Feeding the pig\n");
 		new Thread( new SlowActionRunnable()).start();
 		}
 	}
@@ -79,7 +78,8 @@ public class MyGUI extends JFrame
 				while( ! cancel && numTimes < 100 )
 				{
 					numTimes++;
-					Thread.sleep(1000);
+					Thread.sleep(100);
+					
 				}
 			}
 			catch(Exception ex)
@@ -94,6 +94,8 @@ public class MyGUI extends JFrame
 					public void run()
 					{
 						wheakButton.setEnabled(true);
+						feedPig.setText("Your guinea pig is hungry. Wheak wheak!");
+						updateTextField();
 						cancelButton.setEnabled(false);
 					}
 				});
@@ -110,9 +112,10 @@ public class MyGUI extends JFrame
 		public void actionPerformed(ActionEvent e)
 		{
 			cancel = true;
+			feedPig.setText("Your guinea pig is hungry: \"Wheak Wheak!\"", BorderLayout.CENTER);
 		}
 	}
-	
+
 	private JMenuBar getMyMenuBar()
 	{
 		JMenuBar jmenuBar = new JMenuBar();
@@ -130,18 +133,6 @@ public class MyGUI extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				saveToFile();
-			}
-		});
-		
-		JMenuItem openItem = new JMenuItem("Open");
-		openItem.setMnemonic('O');
-		fileMenu.add(openItem);
-		
-		openItem.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				loadFromFile();
 			}
 		});
 		
@@ -176,37 +167,14 @@ public class MyGUI extends JFrame
 		}
 	}
 	
-	private void loadFromFile()
+	private void updateTextField()
 	{
-		JFileChooser jfc = new JFileChooser();
-		
-		File chosenFile = jfc.getSelectedFile();
-	
-		try
-		{
-			BufferedReader reader = new BufferedReader(new FileReader(chosenFile));
-			String line = reader.readLine();
-			reader.close();
-			if( line == null || reader.readLine() != null)
-				throw new Exception("Unexpected file format");
-		
-			StringTokenizer sToken = new StringTokenizer(line);
-			
-			if( sToken.countTokens() != 1)
-				throw new Exception("Unexpected file format");
-			
-		}
-			
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			JOptionPane.showMessageDialog(this, ex.getMessage(), "Could not read file.", JOptionPane.ERROR_MESSAGE);
-		}
+		feedPig.validate();		
 	}
-
+		
 	public static void main(String[] args)
 	{
-		new MyGUI;
+		new MyGUI();
 	}
 }
 
